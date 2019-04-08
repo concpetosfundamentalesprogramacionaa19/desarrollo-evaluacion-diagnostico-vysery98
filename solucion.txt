@@ -1,0 +1,92 @@
+Inicio
+	//Declaracion de Variables
+	
+	(numAutos,i, sumArg, sumCol, sumChil, sumOtros, i[0-100]), (marcaAuto[],origenAuto[]; x[a-z]), (costoAuto[], impuesto[], precioVenta[], sumaImpuestos, sumaPVenta, d[0-50000])
+	
+	//Inicializacion de Variables
+	
+	numAutos <- 0, i <- 0, sumArg <- 0, sumCol <- 0, sumChil <- 0, sumOtros <- 0, marcaAuto[] <- " ", origenAuto[] <- " ", costoAuto[] <- 0, impuesto[] <- 0, precioVenta[] <- 0, sumaImpuestos <- 0, sumaPVenta <- 0
+	
+	//Entrada
+	
+	<< "Numero de autos importados : "
+	>> numAutos
+	
+	Para i<-1 Hasta numAutos Con Paso 1 Hacer
+	
+		<<"Marca: "
+		>>marcaAuto[i]
+	
+		<<"Pais de Origen: "
+		>>origenAuto[i]
+	
+		<<"Costo: "
+		>>costoAuto[i]
+	
+	FinPara
+	
+	//Proceso (Calculo del Precio de Venta)
+	
+	Para i<-1 Hasta numAutos Con Paso 1 Hacer
+	
+		Si(origenAuto[i] == "Argentina") Entonces
+			impuesto[i] <- 0.2
+			calculoImpuesto[i] <- costoAuto[i] * impuesto[i]
+			precioVenta[i] <- costoAuto[i] + calculoImpuesto[i]
+		Caso Contrario
+			Si (origenAuto[i] == "Colombia") Entonces
+				impuesto[i] <- 0.25
+				calculoImpuesto[i] <- costoAuto[i] * impuesto[i]
+				precioVenta[i] <- costoAuto[i] + calculoImpuesto[i]
+			Caso Contrario
+				Si (origenAuto[i] == "Chile") Entonces
+					impuesto[i] <- 0.3
+					calculoImpuesto[i] <- costoAuto[i] * impuesto[i]
+					precioVenta[i] <- costoAuto[i] + calculoImpuesto[i]
+				Caso Contrario
+					impuesto[i] <- 0.4
+					calculoImpuesto[i] <- costoAuto[i] * impuesto[i]
+					precioVenta[i] <- costoAuto[i] + calculoImpuesto[i]
+				FinSi
+			FinSi
+		FinSi
+	
+	FinPara
+	
+	//Salida (total de autos de los paises de origen)
+	
+	Para i<-1 Hasta numAutos Con Paso 1 Hacer
+		
+		//Total de impuestos generados
+		sumaImpuestos <- sumaImpuestos + calculoImpuesto[i]
+	
+		//Total de precios de venta de autos
+		sumaPVenta <- sumaPVenta + precioVenta[i]
+	
+		//Total de Autos de los Paises de Origen
+		Si(origenAuto[i] == "Argentina") Entonces //Argentina
+			sumArg <- sumArg + 1
+		Caso Contrario
+			Si (origenAuto[i] == "Colombia") Entonces //Colombia
+				sumCol <- sumCol + 1
+			Caso Contrario
+				Si (origenAuto[i] == "Chile") Entonces //Chile
+					sumChil <- sumChil + 1
+				Caso Contrario //Otros
+					sumOtros <- sumOtros +1
+				FinSi
+			FinSi
+		FinSi
+	
+	FinPara
+	
+	<< "Total de Autos importados: ", + numAutos
+	<< "Total de Impuestos Generados: ", + sumaImpuestos
+	<< "Total de precios de Venta de Autos: ", + sumaPVenta
+	<< "Total de Autos de los Paises de Origen: "
+	<< "	Argentina: ", + sumArg
+	<< "	Colombia: ", + sumCol
+	<< "	Chile: ", + sumChil
+	<< "	Otros paises: ", + sumOtros
+		
+Fin
